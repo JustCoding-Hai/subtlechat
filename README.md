@@ -49,8 +49,11 @@
 5. 注册邮箱的授权码，在项目中的mail模块的 application.yml 文件中填入
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201108165225396.png)
+
 6. 搭建fastdfs服务器，fastdfs-client.properties文件改成自己的。
+
 7. 在 IntelliJ IDEA 中打开subtlechat项目，先启动 mail模块，再启动web模块。
+
 8. 启动vue项目。
 
 ## 文档
