@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.javahai.subtlechat.dao.AdminDao">
+
+    <resultMap type="top.javahai.subtlechat.api.entity.Admin" id="AdminMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="userProfile" column="user_profile" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="loadUserByUsername" resultMap="AdminMap">
+        select * from admin where admin.username=#{username}
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="AdminMap">
+        select
+          id, username, nickname, password, user_profile
+        from chatroom.admin
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AdminMap">
+        select
+          id, username, nickname, password, user_profile
+        from chatroom.admin
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdminMap">
+        select
+          id, username, nickname, password, user_profile
+        from chatroom.admin
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="userProfile != null and userProfile != ''">
+                and user_profile = #{userProfile}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into chatroom.admin(username, nickname, password, user_profile)
+        values (#{username}, #{nickname}, #{password}, #{userProfile})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update chatroom.admin
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="userProfile != null and userProfile != ''">
+                user_profile = #{userProfile},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from chatroom.admin where id = #{id}
+    </delete>
+
+</mapper>

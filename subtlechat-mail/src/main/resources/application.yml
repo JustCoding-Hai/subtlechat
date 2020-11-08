@@ -1,0 +1,35 @@
+server:
+  port: 8084
+#邮件相关配置
+spring:
+  application:
+    name: subtlechat-mailserver
+  mail:
+    host: smtp.qq.com
+    protocol: smtp
+    default-encoding: UTF-8
+    #邮箱名
+    username:
+    #申请的授权码
+    password:
+    port: 587
+    properties.mail.stmp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+    properties.mail.debug: true
+  #RabbitMQ的配置
+  rabbitmq:
+    host:
+    port:
+    username:
+    password:
+    virtual-host: /subtlechat
+    #开启手动确认是否消息消费成功
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 100
+  #Redis的配置
+  redis:
+    database: 0
+    password:
+    host:
+    port:

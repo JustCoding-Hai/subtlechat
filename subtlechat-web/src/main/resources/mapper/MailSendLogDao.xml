@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.javahai.subtlechat.dao.MailSendLogDao">
+
+    <resultMap type="top.javahai.subtlechat.api.entity.MailSendLog" id="MailSendLogMap">
+        <result property="msgId" column="msg_id" jdbcType="VARCHAR"/>
+        <result property="contentType" column="content_type" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="routeKey" column="route_key" jdbcType="VARCHAR"/>
+        <result property="exchange" column="exchange" jdbcType="VARCHAR"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="tryTime" column="try_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MailSendLogMap">
+        select
+          msg_id, content_type, content, status, route_key, exchange, count, try_time, create_time, update_time
+        from subtlechat.mail_send_log
+        where msg_id = #{msgId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MailSendLogMap">
+        select
+          msg_id, content_type, content, status, route_key, exchange, count, try_time, create_time, update_time
+        from subtlechat.mail_send_log
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MailSendLogMap">
+        select
+          msg_id, content_type, content, status, route_key, exchange, count, try_time, create_time, update_time
+        from subtlechat.mail_send_log
+        <where>
+            <if test="msgId != null and msgId != ''">
+                and msg_id = #{msgId}
+            </if>
+            <if test="contentType != null">
+                and content_type = #{contentType}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="routeKey != null and routeKey != ''">
+                and route_key = #{routeKey}
+            </if>
+            <if test="exchange != null and exchange != ''">
+                and exchange = #{exchange}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+            <if test="tryTime != null">
+                and try_time = #{tryTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="msgId" useGeneratedKeys="true">
+        insert into subtlechat.mail_send_log(msg_id,content_type, content, status, route_key, exchange, count, try_time, create_time, update_time)
+        values (#{msgId},#{contentType}, #{content}, #{status}, #{routeKey}, #{exchange}, #{count}, #{tryTime}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update subtlechat.mail_send_log
+        <set>
+            <if test="contentType != null">
+                content_type = #{contentType},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="routeKey != null and routeKey != ''">
+                route_key = #{routeKey},
+            </if>
+            <if test="exchange != null and exchange != ''">
+                exchange = #{exchange},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="tryTime != null">
+                try_time = #{tryTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where msg_id = #{msgId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from subtlechat.mail_send_log where msg_id = #{msgId}
+    </delete>
+
+    <update id="updateMailSendLogStatus">
+        update subtlechat.mail_send_log set status=#{status} where msg_id=#{msgId}
+    </update>
+
+    <select id="getMailSendLogsByStatus" resultMap="MailSendLogMap" parameterType="java.lang.Integer">
+        select * from subtlechat.mail_send_log where status=#{delivering} and try_time &lt;sysdate()
+     </select>
+
+    <update id="updateCount">
+        update subtlechat.mail_send_log set update_time=#{date},count=count+1 where msg_id=#{msgId}
+    </update>
+
+    <select id="getMsgById" parameterType="java.lang.String" resultType="java.lang.String">
+        select content from subtlechat.mail_send_log where msg_id=#{msgId}
+    </select>
+</mapper>

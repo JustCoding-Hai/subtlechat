@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.javahai.subtlechat.dao.UserDao">
+
+    <resultMap type="top.javahai.subtlechat.api.entity.User" id="UserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="userProfile" column="user_profile" jdbcType="VARCHAR"/>
+        <result property="userStateId" column="user_state_id" jdbcType="INTEGER"/>
+        <result property="isEnabled" column="is_enabled" jdbcType="OTHER"/>
+        <result property="isLocked" column="is_locked" jdbcType="OTHER"/>
+    </resultMap>
+<!--根据用户名查询用户 -->
+    <select id="loadUserByUsername" resultMap="UserMap">
+        select * from chatroom.user where username=#{username}
+    </select>
+
+<!--获取所有用户数据 -->
+    <select id="getUsersWithoutCurrentUser" resultMap="UserMap" parameterType="java.lang.Integer">
+        select id, username, nickname, user_profile, user_state_id, is_enabled, is_locked from user where id!=#{id}
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          id, username, nickname, password, user_profile, user_state_id, is_enabled, is_locked
+        from chatroom.user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          id, username, nickname, password, user_profile, user_state_id, is_enabled, is_locked
+        from chatroom.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+          id, username, nickname, password, user_profile, user_state_id, is_enabled, is_locked
+        from chatroom.user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="userProfile != null and userProfile != ''">
+                and user_profile = #{userProfile}
+            </if>
+            <if test="userStateId != null">
+                and user_state_id = #{userStateId}
+            </if>
+            <if test="isEnabled != null">
+                and is_enabled = #{isEnabled}
+            </if>
+            <if test="isLocked != null">
+                and is_locked = #{isLocked}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into chatroom.user(username, nickname, password, user_profile, user_state_id, is_enabled, is_locked)
+        values (#{username}, #{nickname}, #{password}, #{userProfile}, #{userStateId}, #{isEnabled}, #{isLocked})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update chatroom.user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="userProfile != null and userProfile != ''">
+                user_profile = #{userProfile},
+            </if>
+            <if test="userStateId != null">
+                user_state_id = #{userStateId},
+            </if>
+            <if test="isEnabled != null">
+                is_enabled = #{isEnabled},
+            </if>
+            <if test="isLocked != null">
+                is_locked = #{isLocked},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from chatroom.user where id = #{id}
+    </delete>
+
+    <update id="setUserStateToOn">
+       update chatroom.user set user_state_id=1 where id=#{id}
+    </update>
+    <update id="setUserStateToLeave">
+        update chatroom.user set user_state_id=2 where id=#{id}
+    </update>
+    <select id="checkUsername" resultType="java.lang.Integer">
+        select count(*) from user where username=#{username}
+    </select>
+    <select id="checkNickname" resultType="java.lang.Integer">
+        select count(*) from user where nickname=#{nickname}
+    </select>
+<!--    按条件查询所有的用户-->
+    <select id="getAllUserByPage" resultMap="UserMap">
+      select * from user where 1=1
+      <if test="keyword!=null and keyword!=''">
+         and nickname like concat('%',#{keyword},'%')
+      </if>
+      <if test="isLocked!=null">
+          and is_locked =#{isLocked}
+      </if>
+      <if test="page!=null and size!=null">
+          limit #{page},#{size}
+      </if>
+    </select>
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*) from user where 1=1
+        <if test="keyword!=null and keyword!=''">
+            and nickname like concat('%',#{keyword},'%')
+        </if>
+        <if test="isLocked!=null">
+            and is_locked =#{isLocked}
+        </if>
+    </select>
+    <update id="changeLockedStatus">
+        update user set is_locked=#{isLocked} where id=#{id}
+    </update>
+    <delete id="deleteByIds">
+        delete from user where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
