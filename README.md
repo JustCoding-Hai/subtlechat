@@ -1,5 +1,5 @@
 # 项目介绍
-微言聊天室是基于前后端分离，采用SpringBoot+Vue框架开发的网页版聊天室。
+微言聊天室是基于前后端分离，采用SpringBoot+Vue框架开发的网页版聊天室。使用了Spring Security安全框架进行密码的加密存储和登录登出等逻辑的处理，以WebSocket+Socket.js+Stomp.js实现消息的发送与接收，监听。搭建FastDFS文件服务器用于保存图片，使用EasyExcel导出数据，使用Vue.js结合Element UI进行显示弹窗和数据表格分页等功能，以及整个系统的界面进行UI设计，并且使用MyBatis结合数据库MySQL进行开发。
 
 功能实现：群聊，单聊，邮件发送，emoji表情发送，图片发送，用户管理，群聊记录管理，Excel的导出。
 
