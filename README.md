@@ -1,6 +1,8 @@
 # 项目介绍
 微言聊天室是基于前后端分离，采用SpringBoot+Vue框架开发的网页版聊天室。
 
+功能实现：群聊，单聊，邮件发送，emoji表情发送，图片发送，用户管理，群聊记录管理，Excel的导出。
+
 项目预览地址：http://www.javahai.top/index.html
 
 前端工程源码地址：https://github.com/JustCoding-Hai/subtlechat-vue
