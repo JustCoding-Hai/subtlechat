@@ -64,6 +64,7 @@
 [项目文档](https://github.com/JustCoding-Hai/subtlechat/wiki)
 
 ## 最后
+致谢：https://github.com/lenve/vhr
 本人QQ：1258398543,期待与你交流！
 
 如果该项目对你有帮助，跪求star！！！
