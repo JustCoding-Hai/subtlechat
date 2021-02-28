@@ -10,6 +10,8 @@
 
 后端工程源码地址：https://github.com/JustCoding-Hai/subtlechat
 
+简化版的后端项目地址(不使用RabbitMQ和Redis): https://github.com/JustCoding-Hai/subtlechat-mini
+
 ## 项目技术栈
 ### 后端技术栈
 1. Spring Boot
