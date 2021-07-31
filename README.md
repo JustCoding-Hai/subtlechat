@@ -6,6 +6,8 @@
 
 项目预览地址：http://www.javahai.top/index.html
 
+演示视频：https://www.bilibili.com/video/BV1qa4y1s7sg/
+
 前端工程源码地址：https://github.com/JustCoding-Hai/subtlechat-vue
 
 后端工程源码地址：https://github.com/JustCoding-Hai/subtlechat
