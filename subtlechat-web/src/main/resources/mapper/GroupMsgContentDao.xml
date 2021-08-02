@@ -16,7 +16,7 @@
     <select id="queryById" resultMap="GroupMsgContentMap">
         select
           id, from_id, from_name, from_profile, create_time, content, message_type_id
-        from chatroom.group_msg_content
+        from subtlechat.group_msg_content
         where id = #{id}
     </select>
 
@@ -24,7 +24,7 @@
     <select id="queryAllByLimit" resultMap="GroupMsgContentMap">
         select
           id, from_id, from_name, from_profile, create_time, content, message_type_id
-        from chatroom.group_msg_content
+        from subtlechat.group_msg_content
         <if test="limit!=null and offset!=null">
         limit #{offset}, #{limit}
         </if>
@@ -34,7 +34,7 @@
     <select id="queryAll" resultMap="GroupMsgContentMap">
         select
           id, from_id, from_name, from_profile, create_time, content, message_type_id
-        from chatroom.group_msg_content
+        from subtlechat.group_msg_content
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -62,13 +62,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into chatroom.group_msg_content(from_id, from_name, from_profile, create_time, content, message_type_id)
+        insert into subtlechat.group_msg_content(from_id, from_name, from_profile, create_time, content, message_type_id)
         values (#{fromId}, #{fromName}, #{fromProfile}, #{createTime}, #{content}, #{messageTypeId})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update chatroom.group_msg_content
+        update subtlechat.group_msg_content
         <set>
             <if test="fromId != null">
                 from_id = #{fromId},
@@ -94,11 +94,11 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from chatroom.group_msg_content where id = #{id}
+        delete from subtlechat.group_msg_content where id = #{id}
     </delete>
 
     <select id="getAllGroupMsgContentByPage" resultMap="GroupMsgContentMap">
-        select * from chatroom.group_msg_content where 1=1
+        select * from subtlechat.group_msg_content where 1=1
         <if test="nickname!=null and nickname!=''">
             and from_name like concat('%',#{nickname},'%')
         </if>
@@ -113,7 +113,7 @@
         </if>
     </select>
     <select id="getTotal" resultType="java.lang.Long">
-        select count(*) from chatroom.group_msg_content where 1=1
+        select count(*) from subtlechat.group_msg_content where 1=1
         <if test="nickname!=null and nickname!=''">
             and from_name like concat('%',#{nickname},'%')
         </if>

@@ -11,7 +11,7 @@
     <select id="queryById" resultMap="UserStateMap">
         select
           id, name
-        from chatroom.user_state
+        from subtlechat.user_state
         where id = #{id}
     </select>
 
@@ -19,7 +19,7 @@
     <select id="queryAllByLimit" resultMap="UserStateMap">
         select
           id, name
-        from chatroom.user_state
+        from subtlechat.user_state
         limit #{offset}, #{limit}
     </select>
 
@@ -27,7 +27,7 @@
     <select id="queryAll" resultMap="UserStateMap">
         select
           id, name
-        from chatroom.user_state
+        from subtlechat.user_state
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -40,13 +40,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into chatroom.user_state(name)
+        insert into subtlechat.user_state(name)
         values (#{name})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update chatroom.user_state
+        update subtlechat.user_state
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
@@ -57,7 +57,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from chatroom.user_state where id = #{id}
+        delete from subtlechat.user_state where id = #{id}
     </delete>
 
 </mapper>
