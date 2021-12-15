@@ -57,9 +57,9 @@ public class VerifyCodeReceiver {
             msg.setSubject("微言聊天室管理端-验证码验证");
             //TODO 使用Thymeleaf，改邮件模板,添加内容：请不要泄露自己的邮箱验证码
             msg.setText("本次登录的验证码："+code);
-            msg.setFrom("1258398543@qq.com");
+            msg.setFrom("发送者的邮箱地址");
             msg.setSentDate(new Date());
-            msg.setTo("jinhaihuang824@aliyun.com");
+            msg.setTo("接受者的邮箱地址");
             javaMailSender.send(msg);
             //消息发送成功，将id放到redis中,不能这样put
             //redisTemplate.opsForHash().entries("mail_log").put(msgId,code);
