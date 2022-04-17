@@ -65,8 +65,8 @@ public class FeedbackReceiver {
             System.out.println(">>>>>>>>>>>>>>"+formatMessage+"<<<<<<<<<<<<<<<<<<");
             //设置邮件消息
             mailMessage.setText(formatMessage.toString());
-            mailMessage.setFrom("1258398543@qq.com");
-            mailMessage.setTo("jinhaihuang824@aliyun.com");
+            mailMessage.setFrom("发送的邮箱地址");
+            mailMessage.setTo("接收的邮箱地址");
             mailMessage.setSentDate(new Date());
             javaMailSender.send(mailMessage);
             //消息处理完成
