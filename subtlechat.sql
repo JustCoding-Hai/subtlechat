@@ -65,6 +65,83 @@ INSERT INTO `feedback` VALUES ('d1741d1e-8151-44eb-ba32-c83cfe107361', '1', 'hua
 INSERT INTO `feedback` VALUES ('ed70f54e-7748-4d36-adc8-c9131875e6f5', '1', 'huang', '王路飞', '!good job!!!');
 
 -- ----------------------------
+-- Table structure for user_state
+-- ----------------------------
+DROP TABLE IF EXISTS `user_state`;
+CREATE TABLE `user_state` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL COMMENT '状态名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_state
+-- ----------------------------
+INSERT INTO `user_state` VALUES ('1', '在线');
+INSERT INTO `user_state` VALUES ('2', '离线');
+INSERT INTO `user_state` VALUES ('3', '已注销');
+
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL COMMENT '登录账号',
+  `nickname` varchar(20) NOT NULL COMMENT '昵称',
+  `password` varchar(255) NOT NULL COMMENT '密码',
+  `user_profile` varchar(255) DEFAULT NULL COMMENT '用户头像',
+  `user_state_id` int(11) DEFAULT '2' COMMENT '用户状态id',
+  `is_enabled` tinyint(1) DEFAULT '1' COMMENT '是否可用',
+  `is_locked` tinyint(1) DEFAULT '0' COMMENT '是否被锁定',
+  PRIMARY KEY (`id`),
+  KEY `user_ibfk_1` (`user_state_id`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`user_state_id`) REFERENCES `user_state` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', 'huang', '王路飞', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1405813947,3985685597&fm=26&gp=0.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('2', 'suolong', '刘索隆', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1449253785,508542562&fm=26&gp=0.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('3', 'hongfa', '面子王', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=170596679,2573810813&fm=26&gp=0.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('4', '22', '23', '$2a$10$hvoriOXwQYpn2m/UWK.bR.LdGQNkwzts0dWcMz0LwuSgcY3fkFTZK', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7vNk6AI5ncAAZrF3kx8E4062.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('5', 'luojie', '罗杰', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7vNk6AI5ncAAZrF3kx8E4062.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('6', 'aaa', 'aaa', '$2a$10$bLgMwYJLbsBTcFVxXhuu3e9CyCCN.e61f1eB6zGp0pELIyT4c340e', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7vNk6AI5ncAAZrF3kx8E4062.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('7', 'luo', '罗', '$2a$10$Jp7.h24JQvLL3/OinvaU7uqUhYxa3m4oZO8PFuASE/wJMame8G5de', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wHOaAVoqUAAEnxFEdf9A80.jpeg', '2', '1', '0');
+INSERT INTO `user` VALUES ('8', 'nami', '娜美', '$2a$10$otFiIxguKGRhgJL..tlJeepm/HVwnnXWmzjL22t0QFVVm5vt1uI5C', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wMJyAOreGAAA2xgw9uGE356.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('9', 'wusuopu', '乌索普', '$2a$10$LFAydsgrxtV0ZuguQfBePOogHQ904DazLqCsgp7sizz4lORobRYbq', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wMhqABTHdAAD2VGh43MM28.jpeg', '2', '1', '1');
+INSERT INTO `user` VALUES ('10', 'qiaoba', '乔巴', '$2a$10$rgUdpi.2mXAhSa/1GR2atO.lXiJXYpp7cp2r1q7Us/y2Pr7p1RNiO', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wPomAWB44AACPzYoUMyE376.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('11', 'luobin', '罗宾', '$2a$10$UfzZSYfd3GrJQO23EomEbeIFKwUdp6HnuTcvLtYV2LbdDQj9KHstK', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wP0-AEZHOAAILbcn5GEM095.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('12', 'fulanqi', '弗兰奇', '$2a$10$3rGgRBJaUAEK2g.1.xVHVuGtKzT2NLqLX2Re9IVwsEbYCv/6vPtRi', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wP3aARozEAAttN5Gqf1U999.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('13', 'buluke', '布鲁克', '$2a$10$b5qMiWVWbB4YyZsxO.XOFuvY5VB4P4FGbwGdCyZVYj7VPUWeQEALW', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wP8mAa9liAAMm-dSmxOo65.jpeg', '2', '1', '0');
+INSERT INTO `user` VALUES ('17', 'lol', 'lol', '$2a$10$LFQ7S8dkTq42Z2bNVaZ8bOxv0jp4d6NBuSLjjPkWfQBbZCBTTqQwi', 'http://39.108.169.57/group1/M00/00/00/J2ypOV78RRGATCo6AA4Q9d1YCi8203.jpg', '1', '1', '0');
+INSERT INTO `user` VALUES ('18', 'abc', 'abc', '$2a$10$LlSBK0N9m4Yvyh6giZta7O979HJzubUrscwu3.0WlIhpUO/bo8Cku', 'http://39.108.169.57/group1/M00/00/00/J2ypOV78qMyAeQV2AA4eYWQZmQA183.jpg', '2', '1', '0');
+INSERT INTO `user` VALUES ('19', 'uuu', 'uuu', '$2a$10$L4VTh./yerVndATzbf7WeectaYOC0MPNcbaYAevVMmgkBSowDaXay', 'http://39.108.169.57/group1/M00/00/00/J2ypOV78r8-AUw8OAAD2VGh43MM26.jpeg', '1', '1', '0');
+INSERT INTO `user` VALUES ('20', 'qwe', 'qwe', '$2a$10$XPvEXzuAeQD14hOGJzJL6uIsLWdDUYa1B4oFU0WUR1yNV2fctYcYS', 'http://39.108.169.57/group1/M00/00/00/J2ypOV79ZYaAcPRzAAEnxFEdf9A79.jpeg', '2', '1', '0');
+INSERT INTO `user` VALUES ('21', '老板', 'boss', '$2a$10$R.MqNOALIQSYWlbJdGgAiOXL4nWPbFgrRfvbOnruaEq2R0MVHLNfi', 'http://39.108.169.57/group1/M00/00/00/J2ypOV91ZzuAQ3QIAABuVAcCVPk458.gif', '2', '1', '0');
+INSERT INTO `user` VALUES ('22', 'lin', 'lin', '$2a$10$kKbT3vueBUBY9ACgatYfd.6tKVG.j/ObrBIELfv8A/5Cab0CX.1a.', 'http://39.108.169.57/group1/M00/00/00/J2ypOV91Z_uADljOAAANuXp4Wt8245.jpg', '2', '1', '0');
+
+
+-- ----------------------------
+-- Table structure for message_type
+-- ----------------------------
+DROP TABLE IF EXISTS `message_type`;
+CREATE TABLE `message_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息类型编号',
+  `name` varchar(20) DEFAULT NULL COMMENT '消息类型名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of message_type
+-- ----------------------------
+INSERT INTO `message_type` VALUES ('1', '文本');
+INSERT INTO `message_type` VALUES ('2', '图片');
+INSERT INTO `message_type` VALUES ('3', '文件');
+
+-- ----------------------------
 -- Table structure for group_msg_content
 -- ----------------------------
 DROP TABLE IF EXISTS `group_msg_content`;
@@ -210,77 +287,5 @@ INSERT INTO `mail_send_log` VALUES ('d4085092-3a02-400c-a99a-6473bb213241', '2',
 INSERT INTO `mail_send_log` VALUES ('d4d8aa1b-a9a9-41e9-ac87-872ec6b105db', '2', '0596', null, '1', 'mail-route-verifyCode', 'mail-exchange', '1', '2020-10-03 13:13:12', '2020-10-03 13:13:02', '2020-10-03 13:13:02');
 INSERT INTO `mail_send_log` VALUES ('ec878a67-08ba-4fea-b44f-dab5c80eedc1', '1', '{\"content\":\"!!!!good job!!!!wow\",\"id\":\"d009a2a6-c7a3-4b29-b32b-848fca278c45\",\"nickname\":\"王路飞\",\"userId\":\"1\",\"username\":\"huang\"}', null, '1', 'mail-route-feedback', 'mail-exchange', '2', '2020-10-02 22:56:45', '2020-10-02 22:56:39', '2020-10-02 22:56:50');
 
--- ----------------------------
--- Table structure for message_type
--- ----------------------------
-DROP TABLE IF EXISTS `message_type`;
-CREATE TABLE `message_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息类型编号',
-  `name` varchar(20) DEFAULT NULL COMMENT '消息类型名称',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of message_type
--- ----------------------------
-INSERT INTO `message_type` VALUES ('1', '文本');
-INSERT INTO `message_type` VALUES ('2', '图片');
-INSERT INTO `message_type` VALUES ('3', '文件');
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL COMMENT '登录账号',
-  `nickname` varchar(20) NOT NULL COMMENT '昵称',
-  `password` varchar(255) NOT NULL COMMENT '密码',
-  `user_profile` varchar(255) DEFAULT NULL COMMENT '用户头像',
-  `user_state_id` int(11) DEFAULT '2' COMMENT '用户状态id',
-  `is_enabled` tinyint(1) DEFAULT '1' COMMENT '是否可用',
-  `is_locked` tinyint(1) DEFAULT '0' COMMENT '是否被锁定',
-  PRIMARY KEY (`id`),
-  KEY `user_ibfk_1` (`user_state_id`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`user_state_id`) REFERENCES `user_state` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', 'huang', '王路飞', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1405813947,3985685597&fm=26&gp=0.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('2', 'suolong', '刘索隆', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1449253785,508542562&fm=26&gp=0.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('3', 'hongfa', '面子王', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=170596679,2573810813&fm=26&gp=0.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('4', '22', '23', '$2a$10$hvoriOXwQYpn2m/UWK.bR.LdGQNkwzts0dWcMz0LwuSgcY3fkFTZK', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7vNk6AI5ncAAZrF3kx8E4062.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('5', 'luojie', '罗杰', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7vNk6AI5ncAAZrF3kx8E4062.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('6', 'aaa', 'aaa', '$2a$10$bLgMwYJLbsBTcFVxXhuu3e9CyCCN.e61f1eB6zGp0pELIyT4c340e', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7vNk6AI5ncAAZrF3kx8E4062.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('7', 'luo', '罗', '$2a$10$Jp7.h24JQvLL3/OinvaU7uqUhYxa3m4oZO8PFuASE/wJMame8G5de', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wHOaAVoqUAAEnxFEdf9A80.jpeg', '2', '1', '0');
-INSERT INTO `user` VALUES ('8', 'nami', '娜美', '$2a$10$otFiIxguKGRhgJL..tlJeepm/HVwnnXWmzjL22t0QFVVm5vt1uI5C', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wMJyAOreGAAA2xgw9uGE356.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('9', 'wusuopu', '乌索普', '$2a$10$LFAydsgrxtV0ZuguQfBePOogHQ904DazLqCsgp7sizz4lORobRYbq', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wMhqABTHdAAD2VGh43MM28.jpeg', '2', '1', '1');
-INSERT INTO `user` VALUES ('10', 'qiaoba', '乔巴', '$2a$10$rgUdpi.2mXAhSa/1GR2atO.lXiJXYpp7cp2r1q7Us/y2Pr7p1RNiO', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wPomAWB44AACPzYoUMyE376.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('11', 'luobin', '罗宾', '$2a$10$UfzZSYfd3GrJQO23EomEbeIFKwUdp6HnuTcvLtYV2LbdDQj9KHstK', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wP0-AEZHOAAILbcn5GEM095.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('12', 'fulanqi', '弗兰奇', '$2a$10$3rGgRBJaUAEK2g.1.xVHVuGtKzT2NLqLX2Re9IVwsEbYCv/6vPtRi', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wP3aARozEAAttN5Gqf1U999.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('13', 'buluke', '布鲁克', '$2a$10$b5qMiWVWbB4YyZsxO.XOFuvY5VB4P4FGbwGdCyZVYj7VPUWeQEALW', 'http://39.108.169.57/group1/M00/00/00/J2ypOV7wP8mAa9liAAMm-dSmxOo65.jpeg', '2', '1', '0');
-INSERT INTO `user` VALUES ('17', 'lol', 'lol', '$2a$10$LFQ7S8dkTq42Z2bNVaZ8bOxv0jp4d6NBuSLjjPkWfQBbZCBTTqQwi', 'http://39.108.169.57/group1/M00/00/00/J2ypOV78RRGATCo6AA4Q9d1YCi8203.jpg', '1', '1', '0');
-INSERT INTO `user` VALUES ('18', 'abc', 'abc', '$2a$10$LlSBK0N9m4Yvyh6giZta7O979HJzubUrscwu3.0WlIhpUO/bo8Cku', 'http://39.108.169.57/group1/M00/00/00/J2ypOV78qMyAeQV2AA4eYWQZmQA183.jpg', '2', '1', '0');
-INSERT INTO `user` VALUES ('19', 'uuu', 'uuu', '$2a$10$L4VTh./yerVndATzbf7WeectaYOC0MPNcbaYAevVMmgkBSowDaXay', 'http://39.108.169.57/group1/M00/00/00/J2ypOV78r8-AUw8OAAD2VGh43MM26.jpeg', '1', '1', '0');
-INSERT INTO `user` VALUES ('20', 'qwe', 'qwe', '$2a$10$XPvEXzuAeQD14hOGJzJL6uIsLWdDUYa1B4oFU0WUR1yNV2fctYcYS', 'http://39.108.169.57/group1/M00/00/00/J2ypOV79ZYaAcPRzAAEnxFEdf9A79.jpeg', '2', '1', '0');
-INSERT INTO `user` VALUES ('21', '老板', 'boss', '$2a$10$R.MqNOALIQSYWlbJdGgAiOXL4nWPbFgrRfvbOnruaEq2R0MVHLNfi', 'http://39.108.169.57/group1/M00/00/00/J2ypOV91ZzuAQ3QIAABuVAcCVPk458.gif', '2', '1', '0');
-INSERT INTO `user` VALUES ('22', 'lin', 'lin', '$2a$10$kKbT3vueBUBY9ACgatYfd.6tKVG.j/ObrBIELfv8A/5Cab0CX.1a.', 'http://39.108.169.57/group1/M00/00/00/J2ypOV91Z_uADljOAAANuXp4Wt8245.jpg', '2', '1', '0');
-
--- ----------------------------
--- Table structure for user_state
--- ----------------------------
-DROP TABLE IF EXISTS `user_state`;
-CREATE TABLE `user_state` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL COMMENT '状态名',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user_state
--- ----------------------------
-INSERT INTO `user_state` VALUES ('1', '在线');
-INSERT INTO `user_state` VALUES ('2', '离线');
-INSERT INTO `user_state` VALUES ('3', '已注销');
